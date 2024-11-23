@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addOrder, setOrders, resetOrders } from '../state/store';
+import { addOrder, setOrders, } from '../state/store';
 import axios from 'axios';
 
 const initialFormState = {
@@ -19,14 +19,12 @@ export default function PizzaForm() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    dispatch(resetOrders());
-  }, [dispatch]);
+ 
 
   const validate = () => {
     const newErrors = {};
 
-    // Validar fullName
+    
     if (!formState.fullName) {
       newErrors.fullName = 'fullName is required.';
     } else if (formState.fullName.length < 3) {

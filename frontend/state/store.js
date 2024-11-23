@@ -24,12 +24,15 @@ const sizeFilterSlice = createSlice({
   },
 });
 
-export const store = configureStore({
-  reducer: {
-    orders: ordersSlice.reducer,
-    sizeFilter: sizeFilterSlice.reducer,
-  },
-});
+export const resetStore = () => {
+  return configureStore({
+    reducer: {
+      orders: ordersSlice.reducer,
+      sizeFilter: sizeFilterSlice.reducer,
+    },
+  });
+};
 
 export const { addOrder, setOrders, resetOrders } = ordersSlice.actions;
 export const { setSizeFilter } = sizeFilterSlice.actions;
+export const store = resetStore()
