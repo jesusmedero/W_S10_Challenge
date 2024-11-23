@@ -1,18 +1,35 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const exampleReducer = (state = { count: 0 }) => {
-  return state
-}
-
-export const resetStore = () => configureStore({
-  reducer: {
-    example: exampleReducer,
-    // add your reducer(s) here
+const ordersSlice = createSlice({
+  name: 'orders',
+  initialState: [],
+  reducers: {
+    addOrder: (state, action) => {
+      state.push(action.payload);
+    },
+    setOrders: (state, action) => {
+      return action.payload; 
+    },
+    resetOrders: () => [],
   },
-  middleware: getDefault => getDefault().concat(
-    // if using RTK Query for your networking: add your middleware here
-    // if using Redux Thunk for your networking: you can ignore this
-  ),
-})
+});
 
-export const store = resetStore()
+const sizeFilterSlice = createSlice({
+  name: 'sizeFilter',
+  initialState: 'All',
+  reducers: {
+    setSizeFilter: (state, action) => {
+      return action.payload;
+    },
+  },
+});
+
+export const store = configureStore({
+  reducer: {
+    orders: ordersSlice.reducer,
+    sizeFilter: sizeFilterSlice.reducer,
+  },
+});
+
+export const { addOrder, setOrders, resetOrders } = ordersSlice.actions;
+export const { setSizeFilter } = sizeFilterSlice.actions;

@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 import { Provider } from 'react-redux'
 import server from './backend/pizza-router-mock'
 import { reset } from './backend/helpers'
-import { resetStore } from './frontend/state/store'
+import { store } from './frontend/state/store'
 import App from './frontend/components/App'
 
 jest.setTimeout(1500)
@@ -15,7 +15,7 @@ const queryOptions = { exact: false }
 beforeAll(() => { server.listen() })
 afterAll(() => { server.close() })
 beforeEach(() => {
-  render(<Provider store={resetStore()}><App /></Provider>)
+  render(<Provider store={store}><App /></Provider>)
 })
 afterEach(() => {
   reset()
@@ -63,6 +63,8 @@ describe('Pizza App', () => {
     await user.click(submit)
     await waitFor(() => screen.getByText('James Dean ordered a size M with 4 toppings', queryOptions), waitForOptions)
   })
+  
+
   test('[4] Validation message ("fullName is required") renders if order lacks fullName', async () => {
     await user.selectOptions(size, 'Large')
     await user.click(submit)
